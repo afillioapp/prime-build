@@ -132,9 +132,40 @@
   .project.tall{grid-row:span 2}
   .project img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
   .project:hover img{transform:scale(1.08)}
-  .project-info{position:absolute;left:0;right:0;bottom:0;padding:26px;background:linear-gradient(transparent,rgba(18,19,22,.92));color:var(--white)}
+  .project-info{position:absolute;left:0;right:0;bottom:0;padding:26px;background:linear-gradient(transparent,rgba(18,19,22,.55) 30%,rgba(18,19,22,.95));color:var(--white)}
   .project-info small{font-family:var(--head);text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-size:13px}
   .project-info h4{color:var(--white);font-size:22px}
+  .project.wide{grid-column:span 2}
+  .project{cursor:pointer}
+  .project:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .project::after{content:"";position:absolute;inset:0;background:rgba(245,180,0,0);transition:.35s}
+  .project:hover::after{background:rgba(245,180,0,.12)}
+  .project-loc{display:block;font-size:13px;color:#d6d8dc;letter-spacing:.4px;margin-top:4px}
+  .project-count{position:absolute;top:16px;right:16px;z-index:2;background:var(--accent);color:var(--dark);font-family:var(--head);text-transform:uppercase;letter-spacing:1px;font-size:12px;font-weight:600;padding:6px 12px}
+  .project-info{z-index:2}
+
+  /* Lightbox */
+  .lightbox{position:fixed;inset:0;z-index:200;background:#0d0e10;display:grid;grid-template-rows:auto minmax(0,1fr) auto;opacity:0;transition:opacity .25s}
+  .lightbox.open{opacity:1}
+  .lightbox[hidden]{display:none}
+  .lb-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .lb-title strong{display:block;font-family:var(--head);text-transform:uppercase;letter-spacing:1px;color:var(--white);font-size:18px}
+  .lb-title span{font-size:13px;color:#a9adb4}
+  .lb-close{background:none;border:0;color:var(--white);font-size:38px;line-height:1;cursor:pointer;padding:0 6px}
+  .lb-close:hover{color:var(--accent)}
+  .lb-stage{grid-row:2;padding:18px 84px;min-height:0;overflow:hidden}
+  .lb-stage img{width:100%;height:100%;object-fit:contain}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:54px;height:54px;border:0;background:rgba(255,255,255,.1);color:var(--white);cursor:pointer;display:grid;place-items:center;transition:.2s}
+  .lb-nav:hover{background:var(--accent)}
+  .lb-nav svg{width:30px;height:30px;fill:currentColor}
+  .lb-nav:hover svg{fill:var(--dark)}
+  .lb-prev{left:16px}
+  .lb-next{right:16px}
+  .lb-thumbs{grid-row:3;display:flex;gap:10px;overflow-x:auto;padding:14px 22px 20px;scrollbar-width:thin}
+  .lb-thumbs img{width:92px;height:66px;object-fit:cover;opacity:.45;cursor:pointer;transition:.2s;flex:0 0 auto}
+  .lb-thumbs img:hover{opacity:.8}
+  .lb-thumbs img.active{opacity:1;outline:3px solid var(--accent);outline-offset:-3px}
+  body.lb-open{overflow:hidden}
 
   /* Process / why */
   .why{background:var(--dark);color:#b9bcc2}
@@ -218,6 +249,7 @@
     .features-grid{grid-template-columns:1fr}
     .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:44px}
     .projects-grid{grid-template-columns:1fr 1fr;grid-auto-rows:240px}
+    .project.wide{grid-column:span 2}
     .stats{background-attachment:scroll}
   }
   @media (max-width:600px){
@@ -226,6 +258,12 @@
     .services-grid,.steps,.footer-grid,.checklist,.form-row{grid-template-columns:1fr}
     .projects-grid{grid-template-columns:1fr}
     .project.tall{grid-row:span 1}
+    .project.wide{grid-column:span 1}
+    .lb-nav{width:44px;height:44px}
+    .lb-prev{left:6px}
+    .lb-next{right:6px}
+    .lb-thumbs img{width:70px;height:52px}
+    .lb-stage{padding:10px 8px}
     .team-grid{grid-template-columns:minmax(0,340px)}
     .about-img{padding:0 0 24px 24px}
     .about-badge{right:0;bottom:44px;padding:18px 20px}
@@ -403,32 +441,65 @@
     <div class="center">
       <div class="eyebrow">Our Work</div>
       <h2 class="section-title">Recent Projects</h2>
-      <p style="max-width:620px;margin:0 auto">A look at the kinds of projects we build and renovate for clients across Newmarket and the surrounding area.</p>
+      <p style="max-width:660px;margin:0 auto">Real jobs completed by our team across Newmarket, Richmond Hill, North York and Toronto. Click any project to browse the full photo gallery.</p>
     </div>
     <div class="projects-grid">
-      <div class="project tall reveal">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Modern residential home exterior" loading="lazy">
-        <div class="project-info"><small>Construction</small><h4>Modern Family Home</h4></div>
-      </div>
-      <div class="project reveal">
-        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80" alt="Renovated modern kitchen" loading="lazy">
-        <div class="project-info"><small>Kitchen Renovation</small><h4>Open-Concept Kitchen</h4></div>
-      </div>
-      <div class="project reveal">
-        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=900&q=80" alt="Renovated bathroom" loading="lazy">
-        <div class="project-info"><small>Bathroom Renovation</small><h4>Spa-Style Ensuite</h4></div>
-      </div>
-      <div class="project reveal">
-        <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80" alt="Finished interior living space" loading="lazy">
-        <div class="project-info"><small>Basement Finishing</small><h4>Finished Lower Level</h4></div>
-      </div>
-      <div class="project reveal">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80" alt="Commercial office interior" loading="lazy">
-        <div class="project-info"><small>Commercial</small><h4>Office Build-Out</h4></div>
-      </div>
+
+      <article class="project tall reveal" data-gallery="bathroom-richmond-hill" tabindex="0" role="button" aria-label="Open gallery: Bathroom Renovation, Richmond Hill">
+        <img src="assets/projects/bathroom-richmond-hill/thumb/01.jpg" alt="Renovated master ensuite with freestanding tub, black double vanity and glass shower in Richmond Hill" loading="lazy">
+        <span class="project-count">6 Photos</span>
+        <div class="project-info">
+          <small>Bathroom Renovation</small>
+          <h4>Master Ensuite Rebuild</h4>
+          <span class="project-loc">Richmond Hill, ON</span>
+        </div>
+      </article>
+
+      <article class="project reveal" data-gallery="kitchen-newmarket" tabindex="0" role="button" aria-label="Open gallery: New Kitchen Build-Out, Newmarket">
+        <img src="assets/projects/kitchen-newmarket/thumb/01.jpg" alt="Custom white kitchen with quartz waterfall island and brass hardware in Newmarket" loading="lazy">
+        <span class="project-count">6 Photos</span>
+        <div class="project-info">
+          <small>Kitchen Construction</small>
+          <h4>New Kitchen Build-Out</h4>
+          <span class="project-loc">Newmarket, ON</span>
+        </div>
+      </article>
+
+      <article class="project reveal" data-gallery="tv-wall-north-york" tabindex="0" role="button" aria-label="Open gallery: Motorized TV Wall and MDF Fireplace, North York">
+        <img src="assets/projects/tv-wall-north-york/thumb/01.jpg" alt="Motorized TV wall mount above a linear electric fireplace with custom MDF surround in North York" loading="lazy">
+        <span class="project-count">3 Photos</span>
+        <div class="project-info">
+          <small>Custom Carpentry</small>
+          <h4>Motorized TV Wall &amp; Fireplace</h4>
+          <span class="project-loc">North York, ON</span>
+        </div>
+      </article>
+
+      <article class="project wide reveal" data-gallery="home-renovation-toronto" tabindex="0" role="button" aria-label="Open gallery: Complete Home Renovation, Toronto">
+        <img src="assets/projects/home-renovation-toronto/thumb/01.jpg" alt="Matte black modern kitchen with island seating and light oak flooring in Toronto" loading="lazy">
+        <span class="project-count">14 Photos</span>
+        <div class="project-info">
+          <small>Complete Home Renovation</small>
+          <h4>Kitchen, Bath, Entryway &amp; Millwork</h4>
+          <span class="project-loc">Toronto, ON</span>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
+
+<!-- Project gallery lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project gallery" hidden>
+  <div class="lb-bar">
+    <div class="lb-title"><strong id="lb-title"></strong><span id="lb-sub"></span></div>
+    <button class="lb-close" id="lb-close" aria-label="Close gallery">&times;</button>
+  </div>
+  <button class="lb-nav lb-prev" id="lb-prev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/></svg></button>
+  <figure class="lb-stage"><img id="lb-img" src="" alt=""></figure>
+  <button class="lb-nav lb-next" id="lb-next" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg></button>
+  <div class="lb-thumbs" id="lb-thumbs"></div>
+</div>
 
 <!-- Process -->
 <section class="why">
@@ -629,6 +700,141 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+  // Project galleries
+  const GALLERIES = {
+    'bathroom-richmond-hill': {
+      title: 'Master Ensuite Rebuild',
+      sub: 'Bathroom Renovation — Richmond Hill, ON',
+      dir: 'assets/projects/bathroom-richmond-hill/',
+      alts: [
+        'Freestanding soaker tub beside a glass steam shower and black vanity island',
+        'Black double vanity island with quartz top and built-in closet wall',
+        'Vanity island facing mirrored closet doors with heated towel rail',
+        'Wide view of the finished ensuite with tub and shower enclosure',
+        'Black vanity with undermount sinks and matte black faucets',
+        'View toward the tub over marble-look porcelain tile flooring'
+      ]
+    },
+    'kitchen-newmarket': {
+      title: 'New Kitchen Build-Out',
+      sub: 'Kitchen Construction — Newmarket, ON',
+      dir: 'assets/projects/kitchen-newmarket/',
+      alts: [
+        'Custom kitchen with large island, plaster hood and cove ceiling lighting',
+        'Quartz waterfall island with gas range and custom range hood',
+        'Prep area with window sink and continuous quartz counters',
+        'Waterfall island detail with book-matched quartz panels',
+        'Perimeter cabinetry with under-cabinet lighting and panelled appliances',
+        'Built-in wall unit with marble slab surround during installation'
+      ]
+    },
+    'tv-wall-north-york': {
+      title: 'Motorized TV Wall & Fireplace',
+      sub: 'Custom Carpentry — North York, ON',
+      dir: 'assets/projects/tv-wall-north-york/',
+      alts: [
+        'Motorized TV mount above a linear electric fireplace in an MDF surround',
+        'Living room view of the finished TV wall and floating media cabinet',
+        'High-gloss media cabinet and fireplace below the mounted television'
+      ]
+    },
+    'home-renovation-toronto': {
+      title: 'Kitchen, Bath, Entryway & Millwork',
+      sub: 'Complete Home Renovation — Toronto, ON',
+      dir: 'assets/projects/home-renovation-toronto/',
+      alts: [
+        'Matte black kitchen island with bar seating over light oak flooring',
+        'Black kitchen with illuminated stone backsplash niche',
+        'Galley view of the kitchen with LED toe-kick lighting',
+        'Dining area beside the full-height black cabinetry wall',
+        'Built-in coffee bar and wine fridge in tall cabinetry',
+        'Tall black pantry cabinet with glass door and interior lighting',
+        'Open pantry with built-in shelving and appliance garage',
+        'Entryway console with full-height mirror beside the staircase',
+        'Entry closet with mirrored console and built-in storage',
+        'Entryway console and mirror by the front windows',
+        'Custom floating console in the renovated entryway',
+        'Detail of the entryway mirror and dark wood console',
+        'Wood vanity with vessel sink and slatted lower shelf',
+        'Powder room vanity with floating wood shelves'
+      ]
+    }
+  };
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbThumbs = document.getElementById('lb-thumbs');
+  let current = null, index = 0, lastFocus = null;
+
+  function show(i) {
+    const g = GALLERIES[current];
+    index = (i + g.alts.length) % g.alts.length;
+    const n = String(index + 1).padStart(2, '0');
+    lbImg.src = g.dir + n + '.jpg';
+    lbImg.alt = g.alts[index];
+    document.getElementById('lb-sub').textContent = g.sub + '  ·  ' + (index + 1) + ' / ' + g.alts.length;
+    lbThumbs.querySelectorAll('img').forEach((t, k) => t.classList.toggle('active', k === index));
+    const active = lbThumbs.children[index];
+    if (active) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+  }
+
+  function openGallery(key, start) {
+    const g = GALLERIES[key];
+    if (!g) return;
+    current = key;
+    lastFocus = document.activeElement;
+    document.getElementById('lb-title').textContent = g.title;
+    lbThumbs.innerHTML = '';
+    g.alts.forEach((alt, k) => {
+      const t = document.createElement('img');
+      t.src = g.dir + 'thumb/' + String(k + 1).padStart(2, '0') + '.jpg';
+      t.alt = alt;
+      t.loading = 'lazy';
+      t.addEventListener('click', () => show(k));
+      lbThumbs.appendChild(t);
+    });
+    lb.hidden = false;
+    document.body.classList.add('lb-open');
+    requestAnimationFrame(() => lb.classList.add('open'));
+    show(start || 0);
+    document.getElementById('lb-close').focus();
+  }
+
+  function closeGallery() {
+    lb.classList.remove('open');
+    document.body.classList.remove('lb-open');
+    setTimeout(() => { lb.hidden = true; lbImg.src = ''; }, 250);
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.project[data-gallery]').forEach(card => {
+    card.addEventListener('click', () => openGallery(card.dataset.gallery, 0));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGallery(card.dataset.gallery, 0); }
+    });
+  });
+
+  document.getElementById('lb-close').addEventListener('click', closeGallery);
+  document.getElementById('lb-prev').addEventListener('click', () => show(index - 1));
+  document.getElementById('lb-next').addEventListener('click', () => show(index + 1));
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lb-stage')) closeGallery(); });
+  document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowLeft') show(index - 1);
+    if (e.key === 'ArrowRight') show(index + 1);
+  });
+
+  // Swipe on touch devices
+  let touchX = null;
+  lb.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+    touchX = null;
+  }, { passive: true });
 
   // Quote form -> mailto
   document.getElementById('quote-form').addEventListener('submit', e => {
